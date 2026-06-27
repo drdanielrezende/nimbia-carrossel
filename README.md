@@ -156,6 +156,14 @@ Conheça mais em [nimbia.com.br](https://nimbia.com.br) e acompanhe no Instagram
 
 ---
 
+## Créditos e Base de Código
+
+O **Nimbia Carrossel** é uma adaptação e personalização do projeto open-source **[Open Carrusel](https://github.com/Hainrixz/open-carrusel)**, desenvolvido originalmente por **Enrique Rocha (Hainrixz / tododeia)**. 
+
+Agradecemos ao autor original e à comunidade por disponibilizarem a base técnica e os conceitos de animação (baseados na filosofia de Emil Kowalski) que viabilizaram este projeto.
+
+---
+
 ## Licença
 
 Este projeto é distribuído sob a licença MIT.
