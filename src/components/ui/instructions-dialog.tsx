@@ -96,7 +96,23 @@ export function InstructionsDialog({ open, onOpenChange }: InstructionsDialogPro
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 mt-8 border-t border-border pt-4">
+          {/* Logo centralizada com link */}
+          <div className="flex justify-center mt-5 mb-1 select-none">
+            <a
+              href="https://nimbia.com.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-80 hover:opacity-100 transition-opacity"
+            >
+              <img
+                src="/uploads/nimbia-logo.png"
+                alt="Nimbia"
+                className="h-8 object-contain"
+              />
+            </a>
+          </div>
+
+          <div className="flex justify-end gap-2 mt-5 border-t border-border pt-4">
             <Dialog.Close asChild>
               <Button variant="accent" size="sm" className="px-5 cursor-pointer">
                 Entendi
