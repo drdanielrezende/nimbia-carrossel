@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
+  // Trava a raiz do projeto. Sem isso, o Next/Turbopack pode inferir a pasta
+  // pai (C:\...\Antigravity, que contém ~28 outros projetos + .zips) como raiz
+  // e tentar varrê-la inteira, estourando a memória e travando o PC.
+  turbopack: {
+    root: __dirname,
+  },
   serverExternalPackages: ["sharp", "archiver", "puppeteer"],
   async headers() {
     return [

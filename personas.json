@@ -1,0 +1,16 @@
+{
+  "default": {
+    "name": "",
+    "handle": "",
+    "avatar": "/uploads/avatar.png",
+    "logo": "/uploads/logo.png",
+    "footer": "",
+    "cta": "",
+    "colors": {
+      "dark1": "#1B5366",
+      "dark2": "#0c2933",
+      "highlight1": "#F89F14",
+      "highlight2": "#cc7e00"
+    }
+  }
+}

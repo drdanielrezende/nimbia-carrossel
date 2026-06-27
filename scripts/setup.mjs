@@ -84,6 +84,19 @@ function seedDataFiles() {
     fs.mkdirSync(dir, { recursive: true });
   }
 
+  // Copy files from ROOT/uploads to ROOT/public/uploads if they exist
+  const rootUploads = path.join(ROOT, "uploads");
+  if (fs.existsSync(rootUploads)) {
+    const files = fs.readdirSync(rootUploads);
+    for (const file of files) {
+      const src = path.join(rootUploads, file);
+      const dest = path.join(uploadsDir, file);
+      if (fs.statSync(src).isFile()) {
+        fs.copyFileSync(src, dest);
+      }
+    }
+  }
+
   const seeds = {
     "brand.json": {
       name: "",

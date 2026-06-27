@@ -88,6 +88,19 @@ export async function exportSlide(
     await page.setViewport({ width, height, deviceScaleFactor: 1 });
     await page.setContent(fullHtml, { waitUntil: "domcontentloaded", timeout: 15000 });
 
+    // Wait for images to load
+    await page.evaluate(() => {
+      return Promise.all(
+        Array.from(document.images).map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.addEventListener("load", resolve);
+            img.addEventListener("error", resolve);
+          });
+        })
+      );
+    });
+
     // Wait for fonts to be ready
     await page
       .waitForFunction(

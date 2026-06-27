@@ -18,6 +18,13 @@ export interface CustomFont {
 
 export interface BrandConfig {
   name: string;
+  specialty?: string;
+  crm?: string;
+  rqe?: string;
+  handle?: string;
+  avatarPath?: string | null;
+  targetAudience: string;
+  toneOfVoice: string[];
   colors: BrandColors;
   fonts: BrandFonts;
   customFonts: CustomFont[];
@@ -29,6 +36,13 @@ export interface BrandConfig {
 
 export const DEFAULT_BRAND: BrandConfig = {
   name: "",
+  specialty: "",
+  crm: "",
+  rqe: "",
+  handle: "",
+  avatarPath: null,
+  targetAudience: "",
+  toneOfVoice: [],
   colors: {
     primary: "#1a1a2e",
     secondary: "#16213e",

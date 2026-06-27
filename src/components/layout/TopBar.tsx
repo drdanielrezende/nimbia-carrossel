@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Settings, Layers } from "lucide-react";
+import { ArrowLeft, Settings, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface TopBarProps {
@@ -11,6 +11,7 @@ interface TopBarProps {
   editable?: boolean;
   onTitleChange?: (newTitle: string) => void;
   onSettingsClick?: () => void;
+  onHelpClick?: () => void;
 }
 
 export function TopBar({
@@ -19,10 +20,19 @@ export function TopBar({
   editable,
   onTitleChange,
   onSettingsClick,
+  onHelpClick,
 }: TopBarProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState("");
+  const [logoError, setLogoError] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const img = new window.Image();
+    img.onload = () => setLogoError(false);
+    img.onerror = () => setLogoError(true);
+    img.src = "/uploads/nimbia-logo.png";
+  }, []);
 
   const startEditing = () => {
     setEditValue(title || "");
@@ -47,13 +57,40 @@ export function TopBar({
     <header className="h-14 border-b border-border bg-surface flex items-center px-4 gap-3 shrink-0">
       {showBack && (
         <Link href="/">
-          <Button variant="ghost" size="icon" aria-label="Back to dashboard">
+          <Button variant="ghost" size="icon" aria-label="Voltar ao painel">
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
       )}
       <div className="flex items-center gap-2 min-w-0">
-        <Layers className="h-5 w-5 text-accent shrink-0" />
+        {/* Logo — maior e clicável para nimbia.com.br */}
+        <a
+          href="https://nimbia.com.br"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Nimbia — abrir site"
+          className="shrink-0 opacity-90 hover:opacity-100 transition-opacity"
+        >
+          {logoError ? (
+            <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-accent to-rose-600 bg-clip-text text-transparent flex items-center gap-1.5 select-none">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              Nimbia
+            </span>
+          ) : (
+            <img
+              src="/uploads/nimbia-logo.png"
+              alt="Nimbia"
+              className="h-9 object-contain"
+              onError={() => setLogoError(true)}
+            />
+          )}
+        </a>
+
+        {/* Separator when there's a page title */}
+        {title && (
+          <span className="text-border select-none">|</span>
+        )}
+
         {isEditing && editable ? (
           <input
             ref={inputRef}
@@ -69,27 +106,41 @@ export function TopBar({
             }}
             className="font-semibold text-sm bg-transparent border-b-2 border-accent outline-none py-0.5 min-w-[120px]"
           />
-        ) : (
+        ) : title ? (
           <span
             className={`font-semibold text-sm truncate ${editable ? "cursor-pointer hover:text-accent transition-colors" : ""}`}
             onClick={() => editable && startEditing()}
-            title={editable ? "Click to rename" : undefined}
+            title={editable ? "Clique para renomear" : undefined}
           >
-            {title || "Open Carrusel"}
+            {title}
           </span>
-        )}
+        ) : null}
       </div>
+
       <div className="flex-1" />
-      {onSettingsClick && (
+
+      {/* Right-side actions */}
+      <div className="flex items-center gap-1">
+        {onSettingsClick && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onSettingsClick}
+            aria-label="Configurações"
+          >
+            <Settings className="h-4 w-4" />
+          </Button>
+        )}
         <Button
           variant="ghost"
           size="icon"
-          onClick={onSettingsClick}
-          aria-label="Settings"
+          onClick={onHelpClick}
+          aria-label="Sobre / Ajuda"
+          title="Sobre"
         >
-          <Settings className="h-4 w-4" />
+          <HelpCircle className="h-4 w-4" />
         </Button>
-      )}
+      </div>
     </header>
   );
 }

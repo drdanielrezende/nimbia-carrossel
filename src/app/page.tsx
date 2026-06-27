@@ -2,12 +2,13 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Layers, Calendar, SlidersHorizontal, Trash2, Copy } from "lucide-react";
+import { Layers, Calendar, SlidersHorizontal, Trash2, Copy, HelpCircle } from "lucide-react";
 import { TopBar } from "@/components/layout/TopBar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
-import { CreateCarouselDialog } from "@/components/ui/create-carousel-dialog";
+import { InstructionsDialog } from "@/components/ui/instructions-dialog";
+import { AboutDialog } from "@/components/ui/about-dialog";
 import { BrandSetup } from "@/components/brand/BrandSetup";
 import { SlideRenderer } from "@/components/editor/SlideRenderer";
 import { TemplateGallery } from "@/components/templates/TemplateGallery";
@@ -48,8 +49,8 @@ export default function DashboardPage() {
     e.stopPropagation();
     setConfirmState({
       open: true,
-      title: `Delete "${name}"?`,
-      description: "This will permanently delete the carousel and all its slides.",
+      title: `Excluir "${name}"?`,
+      description: "Isso excluirá permanentemente o carrossel e todos os seus slides.",
       onConfirm: async () => {
         const res = await fetch(`/api/carousels/${id}`, { method: "DELETE" });
         if (res.ok) {
@@ -59,42 +60,35 @@ export default function DashboardPage() {
     });
   }, []);
 
-  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [showInstructionsDialog, setShowInstructionsDialog] = useState(false);
+  const [showAboutDialog, setShowAboutDialog] = useState(false);
   const [activeTab, setActiveTab] = useState<"carousels" | "templates">("carousels");
-
-  const handleCreate = useCallback(async (name: string, aspectRatio: string) => {
-    const res = await fetch("/api/carousels", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        aspectRatio,
-      }),
-    });
-    if (res.ok) {
-      const carousel = await res.json();
-      router.push(`/carousel/${carousel.id}`);
-    }
-  }, [router]);
 
   return (
     <div className="h-full flex flex-col">
-      <TopBar onSettingsClick={() => setShowBrandSetup(true)} />
+      <TopBar
+        onSettingsClick={() => setShowBrandSetup(true)}
+        onHelpClick={() => setShowAboutDialog(true)}
+      />
 
       <ConfirmDialog
         open={confirmState.open}
         onOpenChange={(open) => setConfirmState((s) => ({ ...s, open }))}
         title={confirmState.title}
         description={confirmState.description}
-        confirmLabel="Delete"
+        confirmLabel="Excluir"
         variant="destructive"
         onConfirm={confirmState.onConfirm}
       />
 
-      <CreateCarouselDialog
-        open={showCreateDialog}
-        onOpenChange={setShowCreateDialog}
-        onCreate={handleCreate}
+      <InstructionsDialog
+        open={showInstructionsDialog}
+        onOpenChange={setShowInstructionsDialog}
+      />
+
+      <AboutDialog
+        open={showAboutDialog}
+        onOpenChange={setShowAboutDialog}
       />
 
       <BrandSetup
@@ -113,14 +107,14 @@ export default function DashboardPage() {
         <div className="max-w-5xl mx-auto px-6 py-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-2xl font-bold">Open Carrusel</h1>
+              <h1 className="text-2xl font-bold">Gerador de Carrosséis</h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Create Instagram carousels with AI
+                Crie carrosséis médicos para Instagram com IA
               </p>
             </div>
-            <Button onClick={() => setShowCreateDialog(true)} variant="accent">
-              <Plus className="h-4 w-4" />
-              New Carousel
+            <Button onClick={() => setShowInstructionsDialog(true)} variant="outline">
+              <HelpCircle className="h-4 w-4" />
+              Como Usar
             </Button>
           </div>
 
@@ -134,7 +128,7 @@ export default function DashboardPage() {
                   : "border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
-              My Carousels
+              Meus Carrosséis
             </button>
             <button
               onClick={() => setActiveTab("templates")}
@@ -144,7 +138,7 @@ export default function DashboardPage() {
                   : "border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
-              Templates
+              Modelos
             </button>
           </div>
 
@@ -163,15 +157,14 @@ export default function DashboardPage() {
             <div className="text-center py-20">
               <Layers className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h2 className="text-lg font-semibold mb-2">
-                No carousels yet
+                Nenhum carrossel ainda
               </h2>
               <p className="text-sm text-muted-foreground mb-6 max-w-md mx-auto">
-                Create your first Instagram carousel. Our AI assistant will
-                help you design beautiful slides in seconds.
+                Solicite a criação de um novo carrossel enviando uma mensagem para o seu assistente de IA no chat. Ele desenhará os slides focando no paciente e na ética médica.
               </p>
-              <Button onClick={() => setShowCreateDialog(true)} variant="accent" size="lg">
-                <Plus className="h-5 w-5" />
-                Create Your First Carousel
+              <Button onClick={() => setShowInstructionsDialog(true)} variant="accent" size="lg">
+                <HelpCircle className="h-5 w-5" />
+                Como Criar Meu Primeiro Carrossel
               </Button>
             </div>
           ) : (

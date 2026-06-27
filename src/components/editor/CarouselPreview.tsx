@@ -36,9 +36,9 @@ export function CarouselPreview({
           <div className="w-16 h-20 border-2 border-dashed border-muted-foreground/30 rounded-lg mx-auto mb-4 flex items-center justify-center">
             <span className="text-2xl opacity-30">+</span>
           </div>
-          <p className="text-sm font-medium">No slides yet</p>
+          <p className="text-sm font-medium">Nenhum slide ainda</p>
           <p className="text-xs mt-1 max-w-[200px]">
-            Use the AI assistant to create your first carousel slide
+            Use o Assistente IA para criar seu primeiro slide
           </p>
         </div>
       </div>
@@ -56,7 +56,7 @@ export function CarouselPreview({
           onClick={() => onActiveChange(activeIndex - 1)}
           disabled={activeIndex <= 0}
           className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 shadow-sm hover:bg-white h-9 w-9"
-          aria-label="Previous slide"
+          aria-label="Slide anterior"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -82,7 +82,7 @@ export function CarouselPreview({
           onClick={() => onActiveChange(activeIndex + 1)}
           disabled={activeIndex >= slides.length - 1}
           className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 shadow-sm hover:bg-white h-9 w-9"
-          aria-label="Next slide"
+          aria-label="Próximo slide"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>

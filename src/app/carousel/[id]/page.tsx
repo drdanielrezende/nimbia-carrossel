@@ -7,7 +7,9 @@ import { Trash2, Grid3X3, Bookmark, Maximize2 } from "lucide-react";
 import { TopBar } from "@/components/layout/TopBar";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
-import { ChatPanel } from "@/components/chat/ChatPanel";
+import { InstructionsDialog } from "@/components/ui/instructions-dialog";
+import { AboutDialog } from "@/components/ui/about-dialog";
+import { NotesPanel } from "@/components/editor/NotesPanel";
 import { CarouselPreview } from "@/components/editor/CarouselPreview";
 import { SlideFilmstrip } from "@/components/editor/SlideFilmstrip";
 import { AspectRatioSelector } from "@/components/editor/AspectRatioSelector";
@@ -27,11 +29,12 @@ export default function CarouselEditorPage({ params }: PageProps) {
   const [carousel, setCarousel] = useState<Carousel | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [claudeAvailable, setClaudeAvailable] = useState(true);
-  const [chatOpen, setChatOpen] = useState(true);
+  const [notesOpen, setNotesOpen] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [showSafeZones, setShowSafeZones] = useState(false);
   const [showFullscreen, setShowFullscreen] = useState(false);
+  const [showInstructionsDialog, setShowInstructionsDialog] = useState(false);
+  const [showAboutDialog, setShowAboutDialog] = useState(false);
 
   // Confirm dialog state
   const [confirmState, setConfirmState] = useState<{
@@ -72,17 +75,7 @@ export default function CarouselEditorPage({ params }: PageProps) {
 
   // Initial data load
   useEffect(() => {
-    const load = async () => {
-      await fetchCarousel();
-      try {
-        const res = await fetch("/api/chat/check");
-        const data: { available?: boolean } = await res.json();
-        if (data.available === false) setClaudeAvailable(false);
-      } catch {
-        // assume available
-      }
-    };
-    load();
+    fetchCarousel();
   }, [fetchCarousel]);
 
   // Poll for carousel updates while AI is generating slides
@@ -112,8 +105,8 @@ export default function CarouselEditorPage({ params }: PageProps) {
     const slideIndex = carousel.slides.findIndex((s) => s.id === slideId);
     setConfirmState({
       open: true,
-      title: `Delete slide ${slideIndex + 1}?`,
-      description: "This action cannot be undone.",
+      title: `Excluir slide ${slideIndex + 1}?`,
+      description: "Esta ação não pode ser desfeita.",
       onConfirm: async () => {
         const res = await fetch(`/api/carousels/${id}/slides/${slideId}`, {
           method: "DELETE",
@@ -134,8 +127,8 @@ export default function CarouselEditorPage({ params }: PageProps) {
     if (!carousel) return;
     setConfirmState({
       open: true,
-      title: `Delete "${carousel.name}"?`,
-      description: "This will permanently delete the carousel and all its slides.",
+      title: `Excluir "${carousel.name}"?`,
+      description: "Isso excluirá permanentemente o carrossel e todos os seus slides.",
       onConfirm: async () => {
         const res = await fetch(`/api/carousels/${id}`, { method: "DELETE" });
         if (res.ok) router.push("/");
@@ -165,22 +158,18 @@ export default function CarouselEditorPage({ params }: PageProps) {
   );
 
   const handleAddSlideRequest = useCallback(() => {
-    setChatOpen(true);
-    // Focus chat input after a tick (to let panel render)
-    setTimeout(() => {
-      chatInputRef.current?.focus();
-    }, 100);
+    setNotesOpen(true);
   }, []);
 
   if (notFound) {
     return (
       <div className="h-full flex flex-col items-center justify-center gap-4">
-        <p className="text-lg font-semibold">Carousel not found</p>
+        <p className="text-lg font-semibold">Carrossel não encontrado</p>
         <p className="text-sm text-muted-foreground">
-          This carousel may have been deleted.
+          Este carrossel pode ter sido excluído.
         </p>
         <Link href="/" className="text-sm text-accent underline">
-          Back to dashboard
+          Voltar ao painel
         </Link>
       </div>
     );
@@ -211,6 +200,7 @@ export default function CarouselEditorPage({ params }: PageProps) {
             setCarousel(updated);
           }
         }}
+        onHelpClick={() => setShowAboutDialog(true)}
       />
 
       {/* Fullscreen preview */}
@@ -229,24 +219,29 @@ export default function CarouselEditorPage({ params }: PageProps) {
         onOpenChange={(open) => setConfirmState((s) => ({ ...s, open }))}
         title={confirmState.title}
         description={confirmState.description}
-        confirmLabel="Delete"
+        confirmLabel="Excluir"
         variant="destructive"
         onConfirm={confirmState.onConfirm}
       />
 
+      {/* Instructions dialog */}
+      <InstructionsDialog
+        open={showInstructionsDialog}
+        onOpenChange={setShowInstructionsDialog}
+      />
+
+      {/* About dialog */}
+      <AboutDialog
+        open={showAboutDialog}
+        onOpenChange={setShowAboutDialog}
+      />
+
       {/* Main editor area */}
       <div className="flex-1 flex min-h-0 overflow-hidden">
-        {/* Chat panel */}
-        {chatOpen && (
+        {/* Notes panel */}
+        {notesOpen && (
           <div className="oc-fade w-80 border-r border-border shrink-0 flex flex-col bg-surface">
-            <ChatPanel
-              carouselId={id}
-              claudeAvailable={claudeAvailable}
-              referenceImages={carousel.referenceImages || []}
-              onStreamStart={handleStreamStart}
-              onStreamEnd={handleStreamEnd}
-              chatInputRef={chatInputRef}
-            />
+            <NotesPanel carouselId={id} />
           </div>
         )}
 
@@ -264,8 +259,8 @@ export default function CarouselEditorPage({ params }: PageProps) {
               size="sm"
               onClick={() => setShowFullscreen(true)}
               className="text-muted-foreground"
-              aria-label="Fullscreen preview"
-              title="Fullscreen preview"
+              aria-label="Tela Cheia"
+              title="Tela Cheia"
             >
               <Maximize2 className="h-3.5 w-3.5" />
             </Button>
@@ -274,8 +269,8 @@ export default function CarouselEditorPage({ params }: PageProps) {
               size="sm"
               onClick={() => setShowSafeZones(!showSafeZones)}
               className={showSafeZones ? "border-accent text-accent" : "text-muted-foreground"}
-              aria-label="Toggle safe zones"
-              title="Instagram safe zones"
+              aria-label="Zonas de Segurança"
+              title="Zonas de Segurança (Instagram)"
             >
               <Grid3X3 className="h-3.5 w-3.5" />
             </Button>
@@ -290,8 +285,8 @@ export default function CarouselEditorPage({ params }: PageProps) {
                 });
               }}
               className="text-muted-foreground"
-              aria-label="Save as template"
-              title="Save as template"
+              aria-label="Salvar como modelo"
+              title="Salvar como modelo"
             >
               <Bookmark className="h-3.5 w-3.5" />
             </Button>
@@ -300,15 +295,15 @@ export default function CarouselEditorPage({ params }: PageProps) {
               size="sm"
               onClick={handleDeleteCarousel}
               className="text-muted-foreground hover:text-destructive"
-              aria-label="Delete carousel"
+              aria-label="Excluir carrossel"
             >
               <Trash2 className="h-3.5 w-3.5" />
             </Button>
             <button
-              onClick={() => setChatOpen(!chatOpen)}
+              onClick={() => setNotesOpen(!notesOpen)}
               className="text-xs text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5 rounded-md border border-border hover:bg-muted"
             >
-              {chatOpen ? "Hide Chat" : "Show Chat"}
+              {notesOpen ? "Esconder Notas" : "Mostrar Notas"}
             </button>
             <ExportButton
               carouselId={carousel.id}

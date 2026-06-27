@@ -51,3 +51,6 @@ open-carrusel*.log
 
 # OS
 Thumbs.db
+
+# local logs
+scratchdev.log

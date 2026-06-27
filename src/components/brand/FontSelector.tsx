@@ -43,7 +43,7 @@ export function FontSelector({ label, value, onChange }: FontSelectorProps) {
         className="mt-2 text-sm"
         style={{ fontFamily: `'${value}', sans-serif` }}
       >
-        The quick brown fox jumps over the lazy dog
+        A rápida raposa marrom pula sobre o cão preguiçoso
       </p>
     </div>
   );

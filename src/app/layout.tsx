@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Open Carrusel — AI Carousel Builder",
+  title: "Nimbia Carrossel Médico",
   description:
-    "Open-source AI-powered Instagram carousel builder. Create beautiful carousels with natural language.",
+    "Criador inteligente de carrosséis médicos para Instagram. Crie posts incríveis com IA, respeitando as normas do CFM.",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="pt-BR"
       translate="no"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
