@@ -1,7 +1,7 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { Globe, X, Sparkles } from "lucide-react";
+import { Globe, X } from "lucide-react";
 import { Button } from "./button";
 
 interface AboutDialogProps {
@@ -24,8 +24,12 @@ export function AboutDialog({ open, onOpenChange }: AboutDialogProps) {
 
           <div className="flex items-center justify-between mb-6 relative">
             <div className="flex items-center gap-2.5">
-              <div className="h-10 w-10 rounded-xl bg-accent/10 flex items-center justify-center border border-accent/20">
-                <Sparkles className="h-5 w-5 text-accent" />
+              <div className="h-10 w-10 rounded-xl overflow-hidden flex items-center justify-center border border-border shrink-0 bg-surface">
+                <img
+                  src="/uploads/nimbia-avatar.png"
+                  alt="Nimbia Avatar"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div>
                 <Dialog.Title className="text-base font-bold tracking-tight">
