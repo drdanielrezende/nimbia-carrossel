@@ -10,7 +10,9 @@ A proposta é facilitar a criação de posts médicos com linguagem acessível, 
 
 Médicos produzem conhecimento todos os dias: em consultas, aulas, artigos, orientações aos pacientes e conversas clínicas.
 
-O Nimbia Carrossel nasce para transformar esse conhecimento em carrosséis educativos, ajudando o médico a comunicar melhor sem depender de modelos genéricos, sensacionalistas ou desalinhados com a ética médica.
+O **Nimbia Carrossel** nasce para transformar esse conhecimento em carrosséis educativos, ajudando o médico a comunicar melhor sem depender de modelos genéricos, sensacionalistas ou desalinhados com a ética médica.
+
+A ferramenta não substitui o raciocínio do profissional. Ela organiza ideias, sugere estruturas e ajuda a transformar temas técnicos em conteúdos mais claros para o público leigo.
 
 ---
 
@@ -21,13 +23,13 @@ Este projeto é voltado para:
 * Médicos que desejam produzir conteúdo educativo para redes sociais;
 * Profissionais que querem melhorar sua presença digital com responsabilidade;
 * Especialistas que precisam transformar temas técnicos em linguagem simples;
-* Médicos que desejam criar posts sem promessas exageradas, alarmismo ou apelos antiéticos.
+* Médicos que desejam criar posts sem promessas exageradas, alarmismo ou apelos antiéticos;
 
 ---
 
 ## O que o projeto faz
 
-O Nimbia Carrossel utiliza agentes de IA para auxiliar na criação de carrosséis médicos a partir de um tema, ideia, artigo, roteiro ou orientação clínica.
+O **Nimbia Carrossel** utiliza agentes de IA para auxiliar na criação de carrosséis médicos a partir de um tema, ideia, artigo, roteiro ou orientação clínica.
 
 A ideia é que o sistema ajude em etapas como:
 
@@ -45,64 +47,72 @@ A ideia é que o sistema ajude em etapas como:
 
 ## Princípios do projeto
 
-O Nimbia Carrossel foi pensado com alguns princípios fundamentais:
+O **Nimbia Carrossel** foi pensado com alguns princípios fundamentais:
 
-1. **Educação antes de persuasão**
-   O foco é informar, orientar e gerar consciência.
+### 1. Educação antes de persuasão
 
-2. **Clareza sem simplificação perigosa**
-   O conteúdo deve ser compreensível para o público leigo, sem distorcer informações médicas.
+O foco é informar, orientar e gerar consciência.
 
-3. **Ética acima do engajamento**
-   O projeto não incentiva promessas de cura, sensacionalismo, autopromoção exagerada ou exploração da vulnerabilidade do paciente.
+### 2. Clareza sem simplificação perigosa
 
-4. **O médico continua no comando**
-   A IA ajuda na estruturação do conteúdo, mas a revisão final deve ser sempre feita pelo profissional responsável.
+O conteúdo deve ser compreensível para o público leigo, sem distorcer informações médicas.
 
-5. **Conteúdo útil, não apenas bonito**
-   A prioridade é criar carrosséis que realmente ajudem o público a entender melhor sua saúde.
+### 3. Ética acima do engajamento
 
----
+O projeto não incentiva promessas de cura, sensacionalismo, autopromoção exagerada ou exploração da vulnerabilidade do paciente.
 
-## Exemplos de uso
+### 4. O médico continua no comando
 
-O médico pode usar o Nimbia Carrossel para criar conteúdos como:
+A IA ajuda na estruturação do conteúdo, mas a revisão final deve ser sempre feita pelo profissional responsável.
 
-* “Por que meu ombro dói ao levantar o braço?”
-* “Artrose no joelho: o que piora a dor no dia a dia?”
-* “Quando a dor na coluna merece atenção?”
-* “O que considerar antes de fazer uma infiltração?”
-* “Dor crônica não é apenas falta de remédio”
-* “Suplementação para mulheres 40+: o que avaliar?”
-* “Estatina e dor muscular: o que observar?”
-* “Menopausa, inflamação e dor articular”
+### 5. Conteúdo útil, não apenas bonito
+
+A prioridade é criar carrosséis que realmente ajudem o público a entender melhor sua saúde.
 
 ---
 
-## Estrutura sugerida de um carrossel
+## Estruturas do carrossel
 
-Um carrossel gerado pelo projeto pode seguir uma estrutura como:
+Um carrossel gerado pelo projeto pode seguir duas estruturas:
 
-1. **Slide 1 — Gancho**
-   Uma frase forte, clara e educativa para capturar a atenção.
+## Twitter
+## Miniblog
 
-2. **Slide 2 — Contexto**
-   Explicação simples do problema.
 
-3. **Slide 3 — Erro comum**
-   Algo que o paciente costuma acreditar ou fazer.
+---
 
-4. **Slide 4 — Explicação médica acessível**
-   O conceito principal explicado em linguagem simples.
+## Requisitos
 
-5. **Slide 5 — Orientação prática**
-   Um caminho possível, sem substituir avaliação individual.
+Para utilizar o **Nimbia Carrossel**, é necessário ter uma conta em pelo menos uma ferramenta de agentes de IA compatível com o projeto.
 
-6. **Slide 6 — Alerta ético**
-   Quando procurar avaliação médica ou investigar melhor.
+Atualmente, o fluxo pode ser utilizado com ferramentas como:
 
-7. **Slide 7 — Fechamento e CTA**
-   Chamada para comentar, salvar, compartilhar ou acessar um conteúdo complementar.
+* Antigravity;
+* OpenAI Codex;
+* Claude Cloud.
+
+Não é obrigatório ter conta em todas essas plataformas. O médico ou desenvolvedor pode escolher uma delas para executar, adaptar ou evoluir o projeto.
+
+Cada ferramenta pode ter suas próprias regras de uso, limites gratuitos, planos pagos, disponibilidade regional e políticas de privacidade. Esses custos e condições não são controlados pela Nimbia.
+
+---
+
+## Como o projeto utiliza agentes de IA
+
+O **Nimbia Carrossel** foi pensado para funcionar com apoio de agentes de IA capazes de auxiliar na criação, organização e revisão de conteúdos médicos educativos.
+
+Esses agentes podem ajudar em tarefas como:
+
+* transformar uma ideia inicial em roteiro de carrossel;
+* organizar o conteúdo em slides;
+* simplificar a linguagem médica para o público leigo;
+* sugerir ganchos, títulos e chamadas para ação;
+* revisar o tom do conteúdo;
+* apoiar a comunicação ética em saúde;
+* adaptar o conteúdo para diferentes especialidades médicas.
+
+A IA atua como ferramenta de apoio. A responsabilidade final pela revisão, validação científica e publicação do conteúdo é sempre do profissional responsável.
+
 
 ---
 
@@ -112,36 +122,18 @@ Este projeto está em desenvolvimento.
 
 A versão inicial tem como objetivo validar a criação de carrosséis médicos com apoio de IA, priorizando:
 
-* simplicidade;
-* utilidade prática;
-* clareza visual;
-* segurança na comunicação;
-* facilidade de uso por médicos.
-
----
-
-## Roadmap
-
-Funcionalidades planejadas:
-
-* [ ] Gerador de roteiro para carrossel;
-* [ ] Sugestão automática de títulos;
-* [ ] Agente de revisão ética;
-* [ ] Agente de simplificação para linguagem leiga;
-* [ ] Geração de legenda para Instagram;
-* [ ] Sugestão de CTA;
-* [ ] Exportação do conteúdo em Markdown;
-* [ ] Exportação para imagem;
-* [ ] Templates por especialidade médica;
-* [ ] Integração com artigos de portais médicos;
-* [ ] Modo “carrossel educativo rápido”;
-* [ ] Modo “carrossel profundo/aula”.
+* Simplicidade;
+* Utilidade prática;
+* Clareza visual;
+* Segurança na comunicação;
+* Facilidade de uso por médicos.
+* Guardrails que atendam à regulação do CFM
 
 ---
 
 ## Aviso importante
 
-O Nimbia Carrossel é uma ferramenta de apoio à criação de conteúdo educativo.
+O **Nimbia Carrossel** é uma ferramenta de apoio à criação de conteúdo educativo.
 
 Ele não substitui o julgamento clínico, a responsabilidade profissional do médico, a revisão científica das informações nem a observação das normas éticas aplicáveis à publicidade médica.
 
@@ -151,7 +143,16 @@ Todo conteúdo gerado deve ser revisado pelo profissional antes da publicação.
 
 ## Sobre a Nimbia
 
-A Nimbia desenvolve soluções digitais com IA para ajudar médicos a organizarem conhecimento, criarem conteúdos educativos, estruturarem portais médicos e fortalecerem sua autoridade digital com ética, clareza e autonomia.
+A **Nimbia** desenvolve soluções digitais com IA para ajudar médicos a organizarem conhecimento, criarem conteúdos educativos, estruturarem portais médicos e fortalecerem sua autoridade digital com ética, clareza e autonomia.
+
+Conheça mais em [nimbia.com.br](https://nimbia.com.br) e acompanhe no Instagram [@nimbia.med](https://www.instagram.com/nimbia.med/).
+
+---
+
+## Links oficiais
+
+* Site: [nimbia.com.br](https://nimbia.com.br)
+* Instagram: [@nimbia.med](https://www.instagram.com/nimbia.med/)
 
 ---
 
